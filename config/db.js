@@ -8,9 +8,9 @@ var connMongoDB = function(){
 		new mongo.Server(
 			'localhost', // string content address server
 			'27017', // port conection
-			{}
+			{} // Object Option configuration server
 		),
-		{} // Configuration optionals
+		{} // Object Configuration optionals
 	);
 
 	return db;

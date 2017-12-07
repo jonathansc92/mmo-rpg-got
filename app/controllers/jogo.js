@@ -7,3 +7,11 @@ module.exports.jogo = function(application, req, res){
 			res.send('Usuario precisa fazer login');
 		}
 }
+
+module.exports.sair = function(application, req, res){
+
+		req.session.destroy(function(err){
+			res.render('index', {validacao:{}})
+		});
+	
+}

@@ -16,5 +16,10 @@ module.exports.autenticar = function(application, req, res){
 			return;
 		}
 
-		res.send("tudo ok para criar a sessão");
+		var connection = application.config.db;
+		var UsuariosDAO = new application.app.models.UsuariosDAO(connection);
+
+		UsuariosDAO.autenticar(dadosForm, req, res);
+
+		//res.send("tudo ok para criar a sessão");
 }

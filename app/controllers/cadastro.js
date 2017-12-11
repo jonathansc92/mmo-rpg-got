@@ -1,5 +1,5 @@
 module.exports.cadastro = function(application, req, res){
-		res.render('cadastro', {validacao: {}, dadosForm: {}});
+	res.render('cadastro', {validacao: {}, dadosForm: {}});
 }
 
 module.exports.cadastrar = function(application, req, res){
@@ -23,11 +23,15 @@ module.exports.cadastrar = function(application, req, res){
 		//console.log(connection);
 
 		var UsuariosDAO = new application.app.models.UsuariosDAO(connection);
+		var JogoDAO = new application.app.models.JogoDAO(connection);
+
 
 		UsuariosDAO.inserirUsuario(dadosForm);
+		JogoDAO.gerarParametros(dadosForm.usuario);
+		// 
 
 		res.send('podemos cadastrar')
 
 
 		//res.render('cadastro');
-}
+	}

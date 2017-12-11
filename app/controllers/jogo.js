@@ -1,17 +1,25 @@
 module.exports.jogo = function(application, req, res){
 
-		if(req.session.autorizado){
-			res.render('jogo',{img_casa: req.session.casa});
-		}
-		else{
-			res.send('Usuario precisa fazer login');
-		}
+	if(req.session.autorizado != true){
+		res.send('Usuário precisa fazer login');
+		return;
+
+	}
+
+	var usuario = req.session.usuario;
+	var casa = req.session.casa;
+
+	var connection = application.config.db;
+	var JogoDAO = new application.app.models.JogoDAO(connection);
+
+	parametros = JogoDAO.iniciaJogo(res, usuario, casa);
+
 }
 
 module.exports.sair = function(application, req, res){
 
-		req.session.destroy(function(err){
-			res.render('index', {validacao:{}})
-		});
+	req.session.destroy(function(err){
+		res.render('index', {validacao:{}})
+	});
 	
 }

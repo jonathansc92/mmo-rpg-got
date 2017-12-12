@@ -39,6 +39,8 @@ module.exports.suditos = function(application, req, res){
 
 	}
 
+
+
 	res.render('aldeoes', {validacao:{}})
 	
 }
@@ -50,6 +52,14 @@ module.exports.pergaminhos = function(application, req, res){
 		return;
 
 	}
+
+		//Take action insert in database
+	var connection =  application.config.db;
+	var JogoDAO = new application.app.models.JogoDAO(connection);
+
+	var usuario = req.session.usuario;
+
+	JogoDAO.getAcoes(usuario);
 
 	res.render('pergaminhos', {validacao:{}})
 	

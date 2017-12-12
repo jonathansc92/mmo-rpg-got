@@ -22,7 +22,7 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
 
 		mongoclient.collection("usuarios", function(error, collection){
 			collection.find(usuario).toArray(function(err, result){
-				console.log(result);
+				//console.log(result);
 
 				if(result[0] != undefined){
 

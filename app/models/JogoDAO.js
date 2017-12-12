@@ -24,7 +24,7 @@ JogoDAO.prototype.gerarParametros =  function(usuario){
 	});
 }
 
-JogoDAO.prototype.iniciaJogo =  function(res, usuario, casa){
+JogoDAO.prototype.iniciaJogo =  function(res, usuario, casa, comando_invalido){
 //	console.log('Iniciar');
 this._connection.open( function(error, mongoclient){
 
@@ -33,9 +33,9 @@ this._connection.open( function(error, mongoclient){
 			usuario: usuario
 		}).toArray(function(err, result){
 			
-			console.log(result[0]);
+		//	console.log(result[0]);
 
-			res.render('jogo', {img_casa: casa, jogo: result[0]})
+			res.render('jogo', {img_casa: casa, jogo: result[0], comando_invalido: comando_invalido})
 			
 			mongoclient.close();
 		});	

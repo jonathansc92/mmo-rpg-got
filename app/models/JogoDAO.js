@@ -1,3 +1,5 @@
+var ObjectID =  require('mongodb').ObjectID;
+
 function JogoDAO(connection){
 	//console.log('object load!');
 	this._connection = connection();
@@ -79,7 +81,7 @@ JogoDAO.prototype.acao =  function(acao, usuario){
 			collection.update(
 				{ usuario: acao.usuario},
 				{ $inc: {moeda: moedas}}
-			);
+				);
 
 			mongoclient.close();
 		})
@@ -102,6 +104,24 @@ JogoDAO.prototype.getAcoes =  function(usuario, res){
 				res.render('pergaminhos', {acoes: result});
 				mongoclient.close();
 			});	
+		});	
+	});
+}
+
+JogoDAO.prototype.revogarAcao =  function(_id, res){
+	//res.send(_id);
+	this._connection.open( function(error, mongoclient){
+
+		mongoclient.collection("acao", function(error, collection){
+
+			collection.remove(
+				{_id: ObjectID(_id)},
+				function(err, result){
+					res.redirect('jogo?msg=D');
+					mongoclient.close();
+				}
+				
+			)
 		});	
 	});
 }

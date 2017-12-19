@@ -30,8 +30,12 @@ module.exports.cadastrar = function(application, req, res){
 		JogoDAO.gerarParametros(dadosForm.usuario);
 		// 
 
-		res.send('podemos cadastrar')
+		res.render('confirmacao_de_cadastro');
 
 
 		//res.render('cadastro');
 	}
+
+/*	module.exports.confirmacao_de_cadastro = function(application, req, res){
+		res.render('confirmacao_de_cadastro');
+	}*/

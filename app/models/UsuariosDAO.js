@@ -1,3 +1,8 @@
+
+// Import module cryto
+var crypto = require("crypto");
+
+
 function UsuariosDAO(connection){
 	//console.log('object load!');
 	this._connection = connection();
@@ -9,10 +14,18 @@ UsuariosDAO.prototype.inserirUsuario = function(usuario){
 	this._connection.open( function(error, mongoclient){
 
 		mongoclient.collection("usuarios", function(error, collection){
-			collection.insert(usuario);
+		//	console.log(usuario);
 
-			mongoclient.close();
-		});	
+		var senha_criptografada = crypto.createHash("md5").update(usuario.senha).digest("hex");		
+
+		//	console.log(senha_criptografada);	
+
+		usuario.senha = senha_criptografada;
+
+		collection.insert(usuario);
+
+		mongoclient.close();
+	});	
 
 	});
 }
@@ -21,6 +34,11 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
 	this._connection.open( function(error, mongoclient){
 
 		mongoclient.collection("usuarios", function(error, collection){
+
+			var senha_criptografada = crypto.createHash("md5").update(usuario.senha).digest("hex");		
+			usuario.senha = senha_criptografada;
+
+
 			collection.find(usuario).toArray(function(err, result){
 				//console.log(result);
 
